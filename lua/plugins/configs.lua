@@ -26,9 +26,9 @@ configs.gruvbox = function()
     contrast = "soft",
     dim_inactive = false,
     transparent_mode = false,
-
-    vim.cmd[[colorscheme gruvbox]]
   }
+
+  vim.cmd[[colorscheme gruvbox]]
 
 end
 
