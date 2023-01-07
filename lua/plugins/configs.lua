@@ -412,7 +412,7 @@ configs.cmp = function()
     }
   end
 
-  local cmp_window = cmp.utils.window
+  local cmp_window = require "cmp.utils.window"
 
   cmp_window.info_ = cmp_window.info
   cmp_window.info = function(self)
@@ -433,7 +433,7 @@ configs.cmp = function()
     },
     snippet = {
       expand = function(args)
-        luasnip.lsp_expand(args.body)
+        require("luasnip").lsp_expand(args.body)
       end,
     },
     formatting = {
@@ -457,7 +457,7 @@ configs.cmp = function()
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
-        elseif luasnip.expand_or_jumpable() then
+        elseif require("luasnip").expand_or_jumpable() then
           vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
         else
           fallback()
@@ -935,14 +935,14 @@ configs.bufferline = function()
 
   bufferline.setup {
     options = {
-      mode = "buffers", -- set to "tabs" to only show tabpages instead
-      numbers = "ordinal",
-      close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
-      right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-      left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
-      middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
+      mode = "buffers",
+      numbers = "none",
+      close_command = "bdelete! %d",
+      right_mouse_command = "bdelete! %d",
+      left_mouse_command = "buffer %d",
+      middle_mouse_command = nil,
       indicator = {
-        icon = '▎', -- this should be omitted if indicator style is not 'icon'
+        icon = '▎',
         style = 'icon',
       },
       buffer_close_icon = '',
@@ -951,8 +951,8 @@ configs.bufferline = function()
       left_trunc_marker = '',
       right_trunc_marker = '',
       max_name_length = 18,
-      max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-      truncate_names = true, -- whether or not tab names should be truncated
+      max_prefix_length = 15,
+      truncate_names = true,
       tab_size = 18,
       diagnostics = "nvim_lsp",
       offsets = {
@@ -963,15 +963,15 @@ configs.bufferline = function()
           separator = true
         }
       },
-      color_icons = true, -- whether or not to add the filetype icon highlights
-      show_buffer_icons = false, -- disable filetype icons for buffers
+      color_icons = true,
+      show_buffer_icons = true,
       show_buffer_close_icons = true,
-      show_buffer_default_icon = true, -- whether or not an unrecognised filetype should show a default icon
+      show_buffer_default_icon = true,
       show_close_icon = true,
       show_tab_indicators = true,
-      show_duplicate_prefix = true, -- whether to show duplicate buffer prefix
+      show_duplicate_prefix = true,
       separator_style = "slack",
-      persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+      persist_buffer_sort = true,
       enforce_regular_tabs = false,
       always_show_bufferline = true,
       hover = {
