@@ -44,6 +44,11 @@ return packer.startup({
     --- nvim lua api ---
     use { "folke/neodev.nvim" }
 
+    -- notify
+    use { "folke/noice.nvim", config=setup("c", "noice") }
+    use { "MunifTanjim/nui.nvim" }
+    use { "rcarriga/nvim-notify" }
+
     --- appearance ---
     use { "ellisonleao/gruvbox.nvim", config=setup("c", "gruvbox") }
     use { "goolord/alpha-nvim", config=setup("c", "alpha") }
@@ -78,11 +83,6 @@ return packer.startup({
     use { "hrsh7th/cmp-buffer", after={"cmp-nvim-lsp"} }
     use { "hrsh7th/cmp-path", after={"cmp-buffer"} }
     use { "windwp/nvim-autopairs", after="nvim-cmp", config=setup("c", "autopairs") }
-
-    -- notify
-    use { "folke/noice.nvim", config=setup("c", "noice") }
-    use { "MunifTanjim/nui.nvim" }
-    use { "rcarriga/nvim-notify" }
 
     -- improve startup time
     use { "lewis6991/impatient.nvim" }

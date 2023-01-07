@@ -482,14 +482,11 @@ end
 
 configs.noice = function()
 
-  local notify = require("notify")
-  local noice = require("noice")
-
-  notify.setup {
+  require("notify").setup {
     background_colour = "#000000",
   }
 
-  noice.setup {
+  require("noice").setup {
     lsp = {
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
