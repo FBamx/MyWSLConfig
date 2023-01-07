@@ -23,10 +23,7 @@ end
 
 configs.gruvbox = function()
 
-  local ok, gruvbox = pcall(require, "gruvbox")
-  if not ok then
-    return
-  end
+  local gruvbox = require("gruvbox")
 
   gruvbox.setup {
     undercurl = true,
@@ -59,10 +56,7 @@ end
 
 configs.dashboard = function()
 
-  local ok, dashboard = pcall(require, "dashboard")
-  if not ok then
-    return
-  end
+  local dashboard = require("dashboard")
 
   dashboard.custom_header = {
     "                                                   ",
@@ -99,10 +93,7 @@ end
 
 configs.alpha = function ()
 
-  local ok, alpha = pcall(require, "alpha")
-  if not ok then
-    return
-  end
+  local alpha = require("alpha")
 
   alpha.setup(require'alpha.themes.dashboard'.config)
 
@@ -111,10 +102,7 @@ end
 
 configs.transparent = function()
 
-  local ok, transparent = pcall(require, "transparent")
-  if not ok then
-    return
-  end
+  local transparent = require("transparent")
 
   transparent.setup {
     enable = true
@@ -125,10 +113,7 @@ end
 
 configs.devicons = function()
 
-  local ok, devicons = pcall(require, "nvim-web-devicons")
-  if not ok then
-    return
-  end
+  local devicons = require("nvim-web-devicons")
 
   devicons.setup {
     override = {
@@ -181,10 +166,7 @@ end
 
 configs.indent_blankline = function()
 
-  local ok, indent_blankline = pcall(require, "indent_blankline")
-  if not ok then
-    return
-  end
+  local indent_blankline = require("indent_blankline")
 
   indent_blankline.setup {
     char = "▏"
@@ -195,10 +177,7 @@ end
 
 configs.todo_comments = function()
 
-  local ok, todo = pcall(require, "todo-comments")
-  if not ok then
-    return
-  end
+  local todo = require("todo-comments")
 
   todo.setup({
     signs = true,
@@ -223,10 +202,7 @@ end
 
 configs.treesitter = function()
 
-  local ok, nvim_treesitter = pcall(require, "nvim-treesitter.configs")
-  if not ok then
-    return
-  end
+  local nvim_treesitter = require("nvim-treesitter.configs")
 
   local options = {
     ensure_installed = {
@@ -264,10 +240,7 @@ end
 
 configs.telescope = function()
 
-  local ok, telescope = pcall(require, "telescope")
-  if not ok then
-    return
-  end
+  local telescope = require("telescope")
 
   telescope.setup {
     defaults = {
@@ -307,10 +280,7 @@ configs.lspconfig = function()
   local on_attach = function(client, bufnr)
   end
 
-  local ok, lspconfig = pcall(require, "lspconfig")
-  if not ok then
-    return
-  end
+  local lspconfig = require("lspconfig")
 
   local lsp_flags = {
     debounce_text_changes = 150,
@@ -366,10 +336,7 @@ end
 
 configs.lspconfig_w_mason = function()
 
-  local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
-  if not mason_lspconfig_status then
-    return
-  end
+  local mason_lspconfig = require("mason-lspconfig")
 
   mason_lspconfig.setup({
     -- list of servers for mason to install
@@ -388,11 +355,7 @@ end
 
 configs.cmp = function()
 
-  local cmp_ok, cmp = pcall(require, "cmp")
-  local luasnip_ok, luasnip = pcall(require, "luasnip")
-  if not (cmp_ok and luasnip_ok) then
-    return
-  end
+  local cmp = require("cmp")
 
   vim.o.completeopt = "menu,menuone,noselect"
 
@@ -492,10 +455,7 @@ end
 
 configs.luasnip = function()
 
-  local ok, luasnip = pcall(require, "luasnip")
-  if not ok then
-    return
-  end
+  local luasnip = require("luasnip")
 
   local options = {
     history = true,
@@ -551,11 +511,8 @@ end
 
 configs.dap = function()
 
-  local dap_ok, dap = pcall(require, "dap")
-  local dapui_ok, dapui = pcall(require, "dapui")
-  if not (dap_ok and dapui_ok) then
-    return
-  end
+  local dap = require("dap")
+  local dapui = require("dapui")
 
   dap.adapters.delve = {
     type = 'server',
@@ -670,10 +627,7 @@ end
 
 configs.dapui = function()
 
-  local ok, dapui = pcall(require, "dapui")
-  if not ok then
-    return
-  end
+  local dapui = require("dapui")
 
   dapui.setup {
     icons = { expanded = "", collapsed = "", current_frame = "" },
@@ -741,10 +695,7 @@ end
 
 configs.nvim_tree = function()
 
-  local ok, tree = pcall(require, "nvim-tree")
-  if not ok then
-    return
-  end
+  local tree = require("nvim-tree")
 
   vim.g.loaded_netrw = 1
   vim.g.loaded_netrwPlugin = 1
@@ -832,10 +783,8 @@ end
 
 configs.hop = function()
 
-  local ok, hop = pcall(require, "hop")
-  if not ok then
-    return
-  end
+  local hop = require("hop")
+
   hop.setup { keys = 'etovxqpdygfblzhckisuran' }
 
 end
@@ -894,11 +843,8 @@ end
 
 configs.sessionManager = function ()
 
-  local session_ok, session_manager = pcall(require, "session_manager")
-  local path_ok, Path = pcall(require, "plenary.path")
-  if not (session_ok and path_ok) then
-    return
-  end
+  local session_manager = require("session_manager")
+  local Path = require("plenary.path")
 
   session_manager.setup{
     sessions_dir = Path:new(vim.fn.stdpath('data'), 'sessions'),
@@ -920,10 +866,7 @@ end
 
 configs.bufferline = function()
 
-  local ok, bufferline = pcall(require, "bufferline")
-  if not ok then
-    return
-  end
+  local bufferline = require("bufferline")
 
   bufferline.setup {
     options = {
@@ -979,12 +922,8 @@ end
 
 configs.autopairs = function()
 
-  local present1, autopairs = pcall(require, "nvim-autopairs")
-  local present2, cmp = pcall(require, "cmp")
-
-  if not (present1 and present2) then
-    return
-  end
+  local autopairs = require("nvim-autopairs")
+  local cmp = require("cmp")
 
   local options = {
     fast_wrap = {},
@@ -997,5 +936,20 @@ configs.autopairs = function()
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 end
+
+
+configs.toggleterm = function()
+
+  local toggleterm = require("toggleterm")
+
+  toggleterm.setup{
+    open_mapping = [[<a-i>]],
+    terminal_mappings = true,
+    insert_mappings = true,
+    direction = "float"
+  }
+
+end
+
 
 return configs

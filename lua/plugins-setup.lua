@@ -107,6 +107,8 @@ return packer.startup({
     -- rainbow parentheses
     use { "p00f/nvim-ts-rainbow" }
 
+    -- toggleterm
+    use { "akinsho/toggleterm.nvim", tag = '*', config=setup("c", "toggleterm") }
     if packer_bootstrap then
       require("packer").sync()
     end
