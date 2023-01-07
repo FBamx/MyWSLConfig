@@ -1,7 +1,32 @@
 local configs = {}
 
+configs.packer_init = function()
+
+  return {
+    auto_clean = true,
+    compile_on_sync = true,
+    git = { clone_timeout = 6000 },
+    display = {
+      working_sym = "ﲊ",
+      error_sym = "✗ ",
+      done_sym = " ",
+      removed_sym = " ",
+      moved_sym = "",
+      open_fn = function()
+        return require("packer.util").float { border = "single" }
+      end,
+    },
+  }
+
+end
+
+
 configs.gruvbox = function()
-  local gruvbox = require("gruvbox");
+
+  local ok, gruvbox = pcall(require, "gruvbox")
+  if not ok then
+    return
+  end
 
   gruvbox.setup {
     undercurl = true,
@@ -33,7 +58,11 @@ configs.gruvbox = function()
 end
 
 configs.dashboard = function()
-  local dashboard = require("dashboard")
+
+  local ok, dashboard = pcall(require, "dashboard")
+  if not ok then
+    return
+  end
 
   dashboard.custom_header = {
     "                                                   ",
@@ -64,26 +93,42 @@ configs.dashboard = function()
       shortcut = " "
     }
   }
+
 end
 
 
 configs.alpha = function ()
-  local alpha = require("alpha")
+
+  local ok, alpha = pcall(require, "alpha")
+  if not ok then
+    return
+  end
+
   alpha.setup(require'alpha.themes.dashboard'.config)
+
 end
 
 
 configs.transparent = function()
-  local transparent = require("transparent")
+
+  local ok, transparent = pcall(require, "transparent")
+  if not ok then
+    return
+  end
 
   transparent.setup {
     enable = true
   }
+
 end
 
 
 configs.devicons = function()
-  local devicons = require("nvim-web-devicons")
+
+  local ok, devicons = pcall(require, "nvim-web-devicons")
+  if not ok then
+    return
+  end
 
   devicons.setup {
     override = {
@@ -99,11 +144,16 @@ configs.devicons = function()
       }
     }
   }
+
 end
 
 
 configs.staline = function()
-  local staline = require("staline")
+
+  local ok, staline = pcall(require, "staline")
+  if not ok then
+    return
+  end
 
   staline.setup {
     defaults = {
@@ -128,19 +178,30 @@ configs.staline = function()
       right = { "cool_symbol", "right_sep_double", "-line_column" }
     }
   }
+
 end
 
 
 configs.indent_blankline = function()
-  local indent_blankline = require("indent_blankline");
+
+  local ok, indent_blankline = pcall(require, "indent_blankline")
+  if not ok then
+    return
+  end
 
   indent_blankline.setup {
     char = "▏"
   }
+
 end
 
+
 configs.todo_comments = function()
-  local todo = require("todo-comments")
+
+  local ok, todo = pcall(require, "todo-comments")
+  if not ok then
+    return
+  end
 
   todo.setup({
     signs = true,
@@ -160,83 +221,16 @@ configs.todo_comments = function()
       error = { "DiagnosticError", "ErrorMsg", "#ff6b6b" }
     },
   })
+
 end
-
-
-configs.bufferline = function()
-  local bufferline = require("bufferline")
-
-  bufferline.setup {
-    highlights = {
-      buffer_selected = {
-        italic = false
-      },
-      numbers_selected = {
-        italic = false
-      },
-      diagnostic_selected = {
-        italic = false
-      },
-      hint_selected = {
-        italic = false
-      },
-      hint_diagnostic_selected = {
-        italic = false
-      },
-      info_selected = {
-        italic = false
-      },
-      info_diagnostic_selected = {
-        italic = false
-      },
-      warning_selected = {
-        italic = false
-      },
-      warning_diagnostic_selected = {
-        italic = false
-      },
-      error_selected = {
-        italic = false
-      },
-      error_diagnostic_selected = {
-        italic = false
-      },
-    },
-    options = {
-      mode = "buffers",
-      numbers = "none",
-      tab_size = 15,
-      diagnostics = "nvim_lsp",
-      show_buffer_icons = false,
-      show_buffer_close_icons = false,
-      show_close_icon = false,
-      show_tab_indicators = true,
-      show_duplicate_prefix = true,
-      separator_style = { "", "" },
-      always_show_bufferline = false,
-
-      indicator = {
-        style = "underline"
-      },
-
-      offsets = {
-        {
-          filetype = "NvimTree",
-          text = "File Explorer",
-          text_align = "center"
-        }
-      },
-
-      hover = {
-        enabled = false
-      }
-    }
-  }
-end
-
 
 configs.treesitter = function()
-  local nvim_treesitter = require("nvim-treesitter.configs")
+
+  local ok, nvim_treesitter = pcall(require, "nvim-treesitter.configs")
+  if not ok then
+    return
+  end
+
   local options = {
     ensure_installed = {
       "lua",
@@ -255,6 +249,12 @@ configs.treesitter = function()
       use_languagetree = true,
     },
 
+    rainbow = {
+      enable = true,
+      extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+      max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    },
+
     indent = {
       enable = true,
     },
@@ -266,7 +266,11 @@ end
 
 
 configs.telescope = function()
-  local telescope = require("telescope")
+
+  local ok, telescope = pcall(require, "telescope")
+  if not ok then
+    return
+  end
 
   telescope.setup {
     defaults = {
@@ -277,10 +281,12 @@ configs.telescope = function()
   }
 
   telescope.load_extension("file_browser")
+
 end
 
 
 configs.lspconfig = function()
+
   vim.diagnostic.config({
     virtual_text = {
       prefix = ""
@@ -304,7 +310,10 @@ configs.lspconfig = function()
   local on_attach = function(client, bufnr)
   end
 
-  local lspconfig = require("lspconfig")
+  local ok, lspconfig = pcall(require, "lspconfig")
+  if not ok then
+    return
+  end
 
   local lsp_flags = {
     debounce_text_changes = 150,
@@ -342,26 +351,51 @@ configs.lspconfig = function()
     on_attach = on_attach,
     flags = lsp_flags,
   }
+
+  lspconfig['yamlls'].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    settings = {
+      yaml = {
+        schemas = {
+          ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+        },
+      },
+    }
+  }
+
 end
 
 
 configs.lspconfig_w_mason = function()
-  local mason_lspconfig = require("mason-lspconfig")
+
+  local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
+  if not mason_lspconfig_status then
+    return
+  end
 
   mason_lspconfig.setup({
+    -- list of servers for mason to install
     ensure_installed = {
       "gopls",
       "pyright",
       "quick_lint_js",
-      "sumneko_lua"
+      "sumneko_lua",
+      "yamlls"
     },
-    automatic_installation = true,
+    -- auto-install configured servers (with lspconfig)
+    automatic_installation = true, -- not the same as ensure_installed
   })
 end
 
 
 configs.cmp = function()
-  local cmp = require("cmp")
+
+  local cmp_ok, cmp = pcall(require, "cmp")
+  local luasnip_ok, luasnip = pcall(require, "luasnip")
+  if not (cmp_ok and luasnip_ok) then
+    return
+  end
 
   vim.o.completeopt = "menu,menuone,noselect"
 
@@ -378,7 +412,7 @@ configs.cmp = function()
     }
   end
 
-  local cmp_window = require "cmp.utils.window"
+  local cmp_window = cmp.utils.window
 
   cmp_window.info_ = cmp_window.info
   cmp_window.info = function(self)
@@ -399,7 +433,7 @@ configs.cmp = function()
     },
     snippet = {
       expand = function(args)
-        require("luasnip").lsp_expand(args.body)
+        luasnip.lsp_expand(args.body)
       end,
     },
     formatting = {
@@ -423,7 +457,7 @@ configs.cmp = function()
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
-        elseif require("luasnip").expand_or_jumpable() then
+        elseif luasnip.expand_or_jumpable() then
           vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
         else
           fallback()
@@ -452,14 +486,19 @@ configs.cmp = function()
       { name = "nvim_lua" },
       { name = "path" },
     },
-}
+  }
 
 cmp.setup(options)
+
 end
 
 
 configs.luasnip = function()
-  local luasnip = require("luasnip")
+
+  local ok, luasnip = pcall(require, "luasnip")
+  if not ok then
+    return
+  end
 
   local options = {
     history = true,
@@ -485,8 +524,12 @@ end
 
 
 configs.noice = function()
-  local notify = require("notify")
-  local noice = require("noice")
+
+  local notify_ok, notify = pcall(require, "notify")
+  local noice_ok, noice = pcall(require, "noice")
+  if not (notify_ok and noice_ok) then
+    return
+  end
 
   notify.setup {
     background_colour = "#000000",
@@ -510,12 +553,17 @@ configs.noice = function()
       lsp_doc_border = false, -- add a border to hover docs and signature help
     },
   }
+
 end
 
 
 configs.dap = function()
-  local dap = require("dap")
-  local dapui = require("dapui")
+
+  local dap_ok, dap = pcall(require, "dap")
+  local dapui_ok, dapui = pcall(require, "dapui")
+  if not (dap_ok and dapui_ok) then
+    return
+  end
 
   dap.adapters.delve = {
     type = 'server',
@@ -629,7 +677,13 @@ end
 
 
 configs.dapui = function()
-  require("dapui").setup {
+
+  local ok, dapui = pcall(require, "dapui")
+  if not ok then
+    return
+  end
+
+  dapui.setup {
     icons = { expanded = "", collapsed = "", current_frame = "" },
     mappings = {
       -- Use a table to apply multiple mappings
@@ -694,11 +748,17 @@ end
 
 
 configs.nvim_tree = function()
+
+  local ok, tree = pcall(require, "nvim-tree")
+  if not ok then
+    return
+  end
+
   vim.g.loaded_netrw = 1
   vim.g.loaded_netrwPlugin = 1
   vim.opt.termguicolors = true
 
-  require("nvim-tree").setup{
+  tree.setup{
     filters = {
       dotfiles = false,
       exclude = { vim.fn.stdpath "config" .. "/lua/custom" },
@@ -774,20 +834,30 @@ configs.nvim_tree = function()
       },
     },
   }
+
 end
 
 
 configs.hop = function()
-  require("hop").setup { keys = 'etovxqpdygfblzhckisuran' }
+
+  local ok, hop = pcall(require, "hop")
+  if not ok then
+    return
+  end
+  hop.setup { keys = 'etovxqpdygfblzhckisuran' }
+
 end
 
 
 configs.isBufValid = function(bufnr)
+
   return vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buflisted
+
 end
 
 
 configs.bufilter = function()
+
   local bufs = vim.t.bufs or nil
 
   if not bufs then
@@ -801,10 +871,12 @@ configs.bufilter = function()
   end
 
   return bufs
+
 end
 
 
 configs.bufferPrev = function()
+
   local bufs = configs.bufilter() or {}
   for i, v in ipairs(bufs) do
     if vim.api.nvim_get_current_buf() == v then
@@ -812,10 +884,12 @@ configs.bufferPrev = function()
       break
     end
   end
+
 end
 
 
 configs.closeBuffer = function(bufnr)
+
   if vim.bo.buftype == "terminal" then
     vim.cmd(vim.bo.buflisted and "set nobl | enew" or "hide")
   else
@@ -823,7 +897,113 @@ configs.closeBuffer = function(bufnr)
     configs.bufferPrev()
     vim.cmd("confirm bd" .. bufnr)
   end
+
 end
 
+configs.sessionManager = function ()
+
+  local session_ok, session_manager = pcall(require, "session_manager")
+  local path_ok, Path = pcall(require, "plenary.path")
+  if not (session_ok and path_ok) then
+    return
+  end
+
+  session_manager.setup{
+    sessions_dir = Path:new(vim.fn.stdpath('data'), 'sessions'),
+    path_replacer = '__',
+    colon_replacer = '++',
+    autoload_mode = require('session_manager.config').AutoloadMode.LastSession,
+    autosave_last_session = true,
+    autosave_ignore_not_normal = true,
+    autosave_ignore_dirs = {},
+    autosave_ignore_filetypes = {
+      'gitcommit',
+    },
+    autosave_ignore_buftypes = {},
+    autosave_only_in_session = false,
+    max_path_length = 80,
+  }
+
+end
+
+configs.bufferline = function()
+
+  local ok, bufferline = pcall(require, "bufferline")
+  if not ok then
+    return
+  end
+
+  bufferline.setup {
+    options = {
+      mode = "buffers", -- set to "tabs" to only show tabpages instead
+      numbers = "ordinal",
+      close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
+      right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
+      left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
+      middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
+      indicator = {
+        icon = '▎', -- this should be omitted if indicator style is not 'icon'
+        style = 'icon',
+      },
+      buffer_close_icon = '',
+      modified_icon = '●',
+      close_icon = '',
+      left_trunc_marker = '',
+      right_trunc_marker = '',
+      max_name_length = 18,
+      max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+      truncate_names = true, -- whether or not tab names should be truncated
+      tab_size = 18,
+      diagnostics = "nvim_lsp",
+      offsets = {
+        {
+          filetype = "NvimTree",
+          text = "File Explorer",
+          text_align = "center",
+          separator = true
+        }
+      },
+      color_icons = true, -- whether or not to add the filetype icon highlights
+      show_buffer_icons = false, -- disable filetype icons for buffers
+      show_buffer_close_icons = true,
+      show_buffer_default_icon = true, -- whether or not an unrecognised filetype should show a default icon
+      show_close_icon = true,
+      show_tab_indicators = true,
+      show_duplicate_prefix = true, -- whether to show duplicate buffer prefix
+      separator_style = "slack",
+      persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+      enforce_regular_tabs = false,
+      always_show_bufferline = true,
+      hover = {
+        enabled = true,
+        delay = 200,
+        reveal = {'close'}
+      },
+    }
+  }
+
+end
+
+
+configs.autopairs = function()
+
+  local present1, autopairs = pcall(require, "nvim-autopairs")
+  local present2, cmp = pcall(require, "cmp")
+
+  if not (present1 and present2) then
+    return
+  end
+
+  local options = {
+    fast_wrap = {},
+    disable_filetype = { "TelescopePrompt", "vim" },
+  }
+
+  autopairs.setup(options)
+
+  local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+end
 
 return configs

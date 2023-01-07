@@ -34,6 +34,8 @@ local setup = function(setup_type, setup_name)
   end
 end
 
+local init_options = require("plugins.configs").packer_init()
+packer.init(init_options)
 
 return packer.startup({
   function(use)
@@ -53,7 +55,6 @@ return packer.startup({
     --- general ---
     use { "nvim-lua/plenary.nvim" }
     use { "cappyzawa/trim.nvim", config=setup("d", "trim") }
-    use { "windwp/nvim-autopairs", config=setup("d", "nvim-autopairs") }
     use { "norcalli/nvim-colorizer.lua", config=setup("d", "colorizer") }
     use { "numToStr/Comment.nvim", config=setup("d", "Comment") }
     use { "lukas-reineke/indent-blankline.nvim", config=setup("c", "indent_blankline")  }
@@ -76,6 +77,7 @@ return packer.startup({
     use { "hrsh7th/cmp-nvim-lsp", after="cmp-nvim-lua" }
     use { "hrsh7th/cmp-buffer", after={"cmp-nvim-lsp"} }
     use { "hrsh7th/cmp-path", after={"cmp-buffer"} }
+    use { "windwp/nvim-autopairs", after="nvim-cmp", config=setup("c", "autopairs") }
 
     -- notify
     use { "folke/noice.nvim", config=setup("c", "noice") }
@@ -99,6 +101,11 @@ return packer.startup({
     -- hop
     use { "phaazon/hop.nvim", branch="v2", config=setup("c", "hop") }
 
+    -- session manager
+    use { "Shatur/neovim-session-manager", config=setup("c", "sessionManager") }
+
+    -- rainbow parentheses
+    use { "p00f/nvim-ts-rainbow" }
 
     if packer_bootstrap then
       require("packer").sync()
