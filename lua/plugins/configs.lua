@@ -51,6 +51,8 @@ configs.gruvbox = function()
   }
 
   vim.cmd[[colorscheme gruvbox]]
+  -- vim.opt.background = "dark" -- set this to dark or light
+  -- vim.cmd.colorscheme "oxocarbon"
 
 end
 
@@ -251,6 +253,7 @@ configs.telescope = function()
   }
 
   telescope.load_extension("file_browser")
+  telescope.load_extension("refactoring")
 
 end
 
@@ -336,9 +339,9 @@ end
 
 configs.lspconfig_w_mason = function()
 
-  local mason_lspconfig = require("mason-lspconfig")
+  local mason = require("mason-lspconfig")
 
-  mason_lspconfig.setup({
+  mason.setup({
     -- list of servers for mason to install
     ensure_installed = {
       "gopls",
@@ -841,10 +844,10 @@ end
 configs.sessionManager = function ()
 
   local session_manager = require("session_manager")
-  local Path = require("plenary.path")
+  local path = require("plenary.path")
 
   session_manager.setup{
-    sessions_dir = Path:new(vim.fn.stdpath('data'), 'sessions'),
+    sessions_dir = path:new(vim.fn.stdpath('data'), 'sessions'),
     path_replacer = '__',
     colon_replacer = '++',
     autoload_mode = require('session_manager.config').AutoloadMode.LastSession,
@@ -948,5 +951,51 @@ configs.toggleterm = function()
 
 end
 
+
+configs.refactoring = function()
+
+  local ok, refactoring = pcall(require, "refactoring")
+  if not ok then
+    return
+  end
+
+  refactoring.setup{
+    prompt_func_return_type = {
+      go = false,
+      java = false,
+
+      cpp = false,
+      c = false,
+      h = false,
+      hpp = false,
+      cxx = false,
+    },
+    prompt_func_param_type = {
+      go = false,
+      java = false,
+
+      cpp = false,
+      c = false,
+      h = false,
+      hpp = false,
+      cxx = false,
+    },
+    printf_statements = {},
+    print_var_statements = {},
+  }
+
+  -- Remaps for the refactoring operations currently offered by the plugin
+  vim.api.nvim_set_keymap("v", "<leader>re", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]], {noremap = true, silent = true, expr = false})
+  vim.api.nvim_set_keymap("v", "<leader>rf", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]], {noremap = true, silent = true, expr = false})
+  vim.api.nvim_set_keymap("v", "<leader>rv", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]], {noremap = true, silent = true, expr = false})
+  vim.api.nvim_set_keymap("v", "<leader>ri", [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], {noremap = true, silent = true, expr = false})
+
+  -- Extract block doesn't need visual mode
+  vim.api.nvim_set_keymap("n", "<leader>rb", [[ <Cmd>lua require('refactoring').refactor('Extract Block')<CR>]], {noremap = true, silent = true, expr = false})
+  vim.api.nvim_set_keymap("n", "<leader>rbf", [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]], {noremap = true, silent = true, expr = false})
+
+  -- Inline variable can also pick up the identifier currently under the cursor without visual mode
+  vim.api.nvim_set_keymap("n", "<leader>ri", [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], {noremap = true, silent = true, expr = false})
+end
 
 return configs

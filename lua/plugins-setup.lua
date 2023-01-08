@@ -109,6 +109,13 @@ return packer.startup({
 
     -- toggleterm
     use { "akinsho/toggleterm.nvim", tag = '*', config=setup("c", "toggleterm") }
+
+    -- oxocarbon theme
+    use { "nyoom-engineering/oxocarbon.nvim" }
+
+    -- refactoring
+    use { "ThePrimeagen/refactoring.nvim", config=setup("c", "refactoring") }
+
     if packer_bootstrap then
       require("packer").sync()
     end

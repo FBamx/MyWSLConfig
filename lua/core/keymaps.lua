@@ -77,6 +77,7 @@ map("n", "<leader>fw", ":Telescope live_grep<CR>", { silent = true })
 map("n", "<leader>fs", ":Telescope grep_string<CR>", { silent = true })
 map("n", "<leader>cm", ":Telescope git_commits<CR>")
 map("n", "<leader>gt", ":Telescope git_status<CR>")
+map("v", "<leader>rr", "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>")
 
 -- dap
 map("n", "<F1>", ":lua require 'dap'.toggle_breakpoint()<CR>")
