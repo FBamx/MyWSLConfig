@@ -211,6 +211,7 @@ configs.treesitter = function()
       "lua",
       "go",
       "python",
+      "java",
       "javascript",
       "vim",
       "regex",
@@ -322,6 +323,11 @@ configs.lspconfig = function()
     flags = lsp_flags,
   }
 
+  lspconfig['jdtls'].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+  }
+
   lspconfig['yamlls'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
@@ -345,6 +351,7 @@ configs.lspconfig_w_mason = function()
     -- list of servers for mason to install
     ensure_installed = {
       "gopls",
+      "jdtls",
       "pyright",
       "quick_lint_js",
       "sumneko_lua",
