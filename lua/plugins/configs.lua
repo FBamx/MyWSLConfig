@@ -391,7 +391,7 @@ configs.cmp = function()
     return info
   end
 
-  local options = {
+  cmp.setup {
     window = {
       completion = {
         border = border "CmpBorder",
@@ -458,21 +458,27 @@ configs.cmp = function()
     },
   }
 
-cmp.setup(options)
-
 end
 
 
 configs.luasnip = function()
 
   local luasnip = require("luasnip")
+  local types = require("luasnip.util.types")
 
-  local options = {
+  luasnip.config.set_config {
     history = true,
     updateevents = "TextChanged,TextChangedI",
+    enable_autosnippets = true,
+    ext_opts = {
+      [types.choiceNode] = {
+        active = {
+          virt_text = { { "●", "GruvboxOrange" } },
+        },
+      },
+    },
   }
 
-  luasnip.config.set_config(options)
   require("luasnip.loaders.from_vscode").lazy_load { paths = vim.g.luasnippets_path or "" }
   require("luasnip.loaders.from_vscode").lazy_load()
 
