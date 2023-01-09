@@ -1011,4 +1011,12 @@ configs.refactoring = function()
   vim.api.nvim_set_keymap("n", "<leader>ri", [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], {noremap = true, silent = true, expr = false})
 end
 
+
+configs.leap = function()
+
+  local leap = require("leap")
+  leap.add_default_mappings()
+
+end
+
 return configs

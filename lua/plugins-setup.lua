@@ -116,6 +116,9 @@ return packer.startup({
     -- refactoring
     use { "ThePrimeagen/refactoring.nvim", config=setup("c", "refactoring") }
 
+    -- leap
+    use { "ggandor/leap.nvim", config=setup("c", "leap") }
+
     if packer_bootstrap then
       require("packer").sync()
     end
