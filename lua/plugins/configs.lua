@@ -217,7 +217,8 @@ configs.treesitter = function()
       "regex",
       "bash",
       "markdown",
-      "markdown_inline"
+      "markdown_inline",
+      "rust"
     },
 
     highlight = {
@@ -328,6 +329,11 @@ configs.lspconfig = function()
     flags = lsp_flags,
   }
 
+  lspconfig['rust_analyzer'].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+  }
+
   lspconfig['yamlls'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
@@ -355,7 +361,8 @@ configs.lspconfig_w_mason = function()
       "pyright",
       "quick_lint_js",
       "sumneko_lua",
-      "yamlls"
+      "yamlls",
+      "rust_analyzer"
     },
     -- auto-install configured servers (with lspconfig)
     automatic_installation = true, -- not the same as ensure_installed
