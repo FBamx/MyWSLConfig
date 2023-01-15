@@ -5,6 +5,9 @@ vim.g.mapleader = " "
 -- unset highlight
 map("n", "<Esc>", ":nohl<CR>")
 
+-- local history
+map("n", "<A-h>", ":LocalHistoryToggle<CR>")
+
 -- escape the insert mode
 map("i", "jj", "<Esc>")
 

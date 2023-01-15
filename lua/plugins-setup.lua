@@ -119,6 +119,9 @@ return packer.startup({
     -- leap
     use { "ggandor/leap.nvim", config=setup("c", "leap") }
 
+    -- local history
+    use { "dinhhuy258/vim-local-history" }
+
     if packer_bootstrap then
       require("packer").sync()
     end
