@@ -40,3 +40,6 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 opt.iskeyword:append("-") -- consider string-string as whole word
 opt.iskeyword:append("_") -- consider string_string as whole word
+
+vim.g.local_history_path = "/root/.local-history"
+vim.g.local_history_max_changes = 100
