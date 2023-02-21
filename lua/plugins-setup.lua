@@ -96,6 +96,7 @@ return packer.startup({
     use { "nvim-tree/nvim-tree.lua", config=setup("c", "nvim_tree") }
 
     -- tagbar
+    -- neet to install ctags: apt install universal-ctags
     use { "preservim/tagbar" }
 
     -- hop

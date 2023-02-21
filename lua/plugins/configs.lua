@@ -50,7 +50,8 @@ configs.gruvbox = function()
     transparent_mode = false,
   }
 
-  vim.cmd[[colorscheme gruvbox]]
+  -- vim.cmd[[colorscheme gruvbox]]
+  vim.cmd.colorscheme "gruvbox"
   -- vim.opt.background = "dark" -- set this to dark or light
   -- vim.cmd.colorscheme "oxocarbon"
 
@@ -360,7 +361,8 @@ configs.lspconfig_w_mason = function()
       "jdtls",
       "pyright",
       "quick_lint_js",
-      "sumneko_lua",
+      -- "sumneko_lua",
+      "lua-language-server",
       "yamlls",
       "rust_analyzer"
     },
@@ -724,8 +726,6 @@ configs.nvim_tree = function()
     },
     disable_netrw = true,
     hijack_netrw = true,
-    open_on_setup = false,
-    ignore_ft_on_setup = { "alpha" },
     hijack_cursor = true,
     hijack_unnamed_buffer_when_opening = false,
     update_cwd = true,
